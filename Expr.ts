@@ -2,13 +2,30 @@
 import { Token } from "./Token.ts";
 
 export interface Visitor<R> {
+  visitAssignExpr(expr: Assign): R;
   visitBinaryExpr(expr: Binary): R;
   visitGroupingExpr(expr: Grouping): R;
   visitLiteralExpr(expr: Literal): R;
   visitUnaryExpr(expr: Unary): R;
+  visitVariableExpr(expr: Variable): R;
 }
 export abstract class Expr {
   abstract accept<R>(visitor: Visitor<R>): R;
+}
+
+export class Assign extends Expr {
+  readonly name: Token;
+  readonly value: Expr;
+
+  constructor(name: Token, value: Expr) {
+    super();
+    this.name = name;
+    this.value = value;
+  }
+
+  accept<R>(visitor: Visitor<R>): R {
+    return visitor.visitAssignExpr(this);
+  }
 }
 
 export class Binary extends Expr {
@@ -42,9 +59,9 @@ export class Grouping extends Expr {
 }
 
 export class Literal extends Expr {
-  readonly value: unknown;
+  readonly value: any;
 
-  constructor(value: unknown) {
+  constructor(value: any) {
     super();
     this.value = value;
   }
@@ -66,5 +83,18 @@ export class Unary extends Expr {
 
   accept<R>(visitor: Visitor<R>): R {
     return visitor.visitUnaryExpr(this);
+  }
+}
+
+export class Variable extends Expr {
+  readonly name: Token;
+
+  constructor(name: Token) {
+    super();
+    this.name = name;
+  }
+
+  accept<R>(visitor: Visitor<R>): R {
+    return visitor.visitVariableExpr(this);
   }
 }

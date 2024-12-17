@@ -10,10 +10,19 @@ async function main(args: string[]): Promise<void> {
   const outputDir = args[0];
 
   await defineAst(outputDir, "Expr", [
+    "Assign   : Token name, Expr value",
     "Binary   : Expr left, Token operator, Expr right",
     "Grouping : Expr expression",
     "Literal  : any value",
     "Unary    : Token operator, Expr right",
+    "Variable : Token name",
+  ]);
+
+  await defineAst(outputDir, "Stmt", [
+    "Block      : Array<Stmt> statements",
+    "Expression : Expr expression",
+    "Print      : Expr expression",
+    "Var        : Token name, Expr initializer",
   ]);
 }
 
@@ -27,6 +36,7 @@ async function defineAst(
 
   lines.push("// This file is auto-generated.");
   lines.push('import { Token } from "./Token.ts";');
+  lines.push('import { Expr } from "./Expr.ts";');
   lines.push("");
 
   // Generate the visitor interface

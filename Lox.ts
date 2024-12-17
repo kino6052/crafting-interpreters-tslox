@@ -33,13 +33,13 @@ export class Lox {
     const tokens = scanner.scanTokens();
 
     const parser = new Parser(tokens);
-    const expression = parser.parse();
+    const statements = parser.parse();
 
     // Stop if there was a syntax error.
     if (this.hadError) return;
 
-    if (expression) {
-      Lox.interpreter.interpret(expression);
+    if (statements) {
+      Lox.interpreter.interpret(statements);
     }
   }
 

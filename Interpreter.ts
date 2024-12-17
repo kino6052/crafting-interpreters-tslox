@@ -1,14 +1,35 @@
-import { Binary, Expr, Grouping, Literal, Unary, Visitor } from "./Expr.ts";
+import {
+  Assign,
+  Binary,
+  Expr,
+  Grouping,
+  Literal,
+  Unary,
+  Variable,
+  Visitor,
+} from "./Expr.ts";
+import {
+  Block,
+  Expression,
+  Print,
+  Stmt,
+  Visitor as StmtVisitor,
+  Var,
+} from "./Stmt.ts";
 import { Lox } from "./Lox.ts";
 import { RuntimeError } from "./RuntimeError.ts";
 import { Token } from "./Token.ts";
 import { TokenType } from "./TokenType.ts";
+import { Environment } from "./Environment.ts";
 
-export class Interpreter implements Visitor<unknown> {
-  interpret(expression: Expr): void {
+export class Interpreter implements Visitor<unknown>, StmtVisitor<void> {
+  private environment = new Environment();
+
+  interpret(statements: Array<Stmt>): void {
     try {
-      const value = this.evaluate(expression);
-      console.log(this.stringify(value));
+      for (const statement of statements) {
+        this.execute(statement);
+      }
     } catch (error) {
       if (error instanceof RuntimeError) {
         Lox.runtimeError(error);
@@ -36,6 +57,10 @@ export class Interpreter implements Visitor<unknown> {
 
     // Unreachable
     throw new Error("Invalid unary operator.");
+  }
+
+  public visitVariableExpr(expr: Variable): unknown {
+    return this.environment.get(expr.name);
   }
 
   private checkNumberOperand(operator: Token, operand: unknown): void {
@@ -81,6 +106,50 @@ export class Interpreter implements Visitor<unknown> {
 
   private evaluate(expr: Expr): unknown {
     return expr.accept(this);
+  }
+
+  private execute(stmt: Stmt): void {
+    stmt.accept(this);
+  }
+
+  executeBlock(statements: Stmt[], environment: Environment): void {
+    const previous = this.environment;
+    try {
+      this.environment = environment;
+
+      for (const statement of statements) {
+        this.execute(statement);
+      }
+    } finally {
+      this.environment = previous;
+    }
+  }
+
+  visitBlockStmt(stmt: Block): void {
+    this.executeBlock(stmt.statements, new Environment(this.environment));
+  }
+
+  visitExpressionStmt(stmt: Expression): void {
+    this.evaluate(stmt.expression);
+  }
+
+  visitPrintStmt(stmt: Print): void {
+    const value = this.evaluate(stmt.expression);
+    console.log(this.stringify(value));
+  }
+
+  visitVarStmt(stmt: Var): void {
+    let value: unknown = null;
+    if (stmt.initializer !== null) {
+      value = this.evaluate(stmt.initializer);
+    }
+    this.environment.define(stmt.name.lexeme, value);
+  }
+
+  visitAssignExpr(expr: Assign): unknown {
+    const value = this.evaluate(expr.value);
+    this.environment.assign(expr.name, value);
+    return value;
   }
 
   visitBinaryExpr(expr: Binary): unknown {
