@@ -4,6 +4,7 @@ import {
   Expr,
   Grouping,
   Literal,
+  Logical,
   Unary,
   Variable,
   Visitor,
@@ -11,10 +12,12 @@ import {
 import {
   Block,
   Expression,
+  If,
   Print,
   Stmt,
   Visitor as StmtVisitor,
   Var,
+  While,
 } from "./Stmt.ts";
 import { Lox } from "./Lox.ts";
 import { RuntimeError } from "./RuntimeError.ts";
@@ -41,6 +44,36 @@ export class Interpreter implements Visitor<unknown>, StmtVisitor<void> {
 
   visitLiteralExpr(expr: Literal): unknown {
     return expr.value;
+  }
+
+  visitLogicalExpr(expr: Logical): unknown {
+    const left = this.evaluate(expr.left);
+
+    if (expr.operator.type === TokenType.OR) {
+      if (this.isTruthy(left)) {
+        return left;
+      }
+    } else {
+      if (!this.isTruthy(left)) {
+        return left;
+      }
+    }
+
+    return this.evaluate(expr.right);
+  }
+
+  visitIfStmt(stmt: If): void {
+    if (this.isTruthy(this.evaluate(stmt.condition))) {
+      this.execute(stmt.thenBranch);
+    } else if (stmt.elseBranch !== null) {
+      this.execute(stmt.elseBranch);
+    }
+  }
+
+  visitWhileStmt(stmt: While): void {
+    while (this.isTruthy(this.evaluate(stmt.condition))) {
+      this.execute(stmt.body);
+    }
   }
 
   visitUnaryExpr(expr: Unary): unknown {

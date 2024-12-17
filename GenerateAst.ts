@@ -14,6 +14,7 @@ async function main(args: string[]): Promise<void> {
     "Binary   : Expr left, Token operator, Expr right",
     "Grouping : Expr expression",
     "Literal  : any value",
+    "Logical  : Expr left, Token operator, Expr right",
     "Unary    : Token operator, Expr right",
     "Variable : Token name",
   ]);
@@ -21,8 +22,10 @@ async function main(args: string[]): Promise<void> {
   await defineAst(outputDir, "Stmt", [
     "Block      : Array<Stmt> statements",
     "Expression : Expr expression",
+    "If         : Expr condition, Stmt thenBranch," + " Stmt|null elseBranch",
     "Print      : Expr expression",
     "Var        : Token name, Expr initializer",
+    "While      : Expr condition, Stmt body",
   ]);
 }
 
