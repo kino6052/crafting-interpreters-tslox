@@ -1,6 +1,6 @@
-import { Token } from "./Token";
-import { Binary, Expr, Grouping, Literal, Unary } from "./Expr";
-import { Lox } from "./Lox";
+import { Token } from "./Token.ts";
+import { Binary, Expr, Grouping, Literal, Unary } from "./Expr.ts";
+import { Lox } from "./Lox.ts";
 import { TokenType } from "./TokenType.ts";
 
 class ParseError extends Error {}

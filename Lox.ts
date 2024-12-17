@@ -1,12 +1,15 @@
 import { readLines } from "https://deno.land/std@0.200.0/io/mod.ts";
-import { Scanner } from "./Scanner.ts";
+import { Interpreter } from "./Interpreter.ts";
 import { Parser } from "./Parser.ts";
-import { AstPrinter } from "./AstPrinter.ts";
+import { Scanner } from "./Scanner.ts";
 import { Token } from "./Token.ts";
 import { TokenType } from "./TokenType.ts";
+import { RuntimeError } from "./RuntimeError.ts";
 
 export class Lox {
+  private static interpreter = new Interpreter();
   private static hadError = false;
+  private static hadRuntimeError = false;
 
   static async runFile(path: string): Promise<void> {
     const decoder = new TextDecoder("utf-8");
@@ -14,6 +17,7 @@ export class Lox {
     this.run(decoder.decode(bytes));
 
     if (this.hadError) Deno.exit(65);
+    if (this.hadRuntimeError) Deno.exit(70);
   }
 
   static async runPrompt(): Promise<void> {
@@ -35,7 +39,7 @@ export class Lox {
     if (this.hadError) return;
 
     if (expression) {
-      console.warn(new AstPrinter().print(expression));
+      Lox.interpreter.interpret(expression);
     }
   }
 
@@ -51,6 +55,11 @@ export class Lox {
         this.report(lineOrToken.line, ` at '${lineOrToken.lexeme}'`, message);
       }
     }
+  }
+
+  static runtimeError(error: RuntimeError): void {
+    console.error(`${error.message}\n[line ${error.token.line}]`);
+    this.hadRuntimeError = true;
   }
 
   private static report(line: number, where: string, message: string): void {
