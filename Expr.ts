@@ -4,6 +4,7 @@ import { Token } from "./Token.ts";
 export interface Visitor<R> {
   visitAssignExpr(expr: Assign): R;
   visitBinaryExpr(expr: Binary): R;
+  visitCallExpr(expr: Call): R;
   visitGroupingExpr(expr: Grouping): R;
   visitLiteralExpr(expr: Literal): R;
   visitLogicalExpr(expr: Logical): R;
@@ -43,6 +44,23 @@ export class Binary extends Expr {
 
   accept<R>(visitor: Visitor<R>): R {
     return visitor.visitBinaryExpr(this);
+  }
+}
+
+export class Call extends Expr {
+  readonly callee: Expr;
+  readonly paren: Token;
+  readonly arguments: Array<Expr>;
+
+  constructor(callee: Expr, paren: Token, _arguments: Array<Expr>) {
+    super();
+    this.callee = callee;
+    this.paren = paren;
+    this.arguments = _arguments;
+  }
+
+  accept<R>(visitor: Visitor<R>): R {
+    return visitor.visitCallExpr(this);
   }
 }
 

@@ -5,8 +5,10 @@ import { Expr } from "./Expr.ts";
 export interface Visitor<R> {
   visitBlockStmt(stmt: Block): R;
   visitExpressionStmt(stmt: Expression): R;
+  visitFunctionStmt(stmt: Function): R;
   visitIfStmt(stmt: If): R;
   visitPrintStmt(stmt: Print): R;
+  visitReturnStmt(stmt: Return): R;
   visitVarStmt(stmt: Var): R;
   visitWhileStmt(stmt: While): R;
 }
@@ -40,6 +42,23 @@ export class Expression extends Stmt {
   }
 }
 
+export class Function extends Stmt {
+  readonly name: Token;
+  readonly params: Array<Token>;
+  readonly body: Array<Stmt>;
+
+  constructor(name: Token, params: Array<Token>, body: Array<Stmt>) {
+    super();
+    this.name = name;
+    this.params = params;
+    this.body = body;
+  }
+
+  accept<R>(visitor: Visitor<R>): R {
+    return visitor.visitFunctionStmt(this);
+  }
+}
+
 export class If extends Stmt {
   readonly condition: Expr;
   readonly thenBranch: Stmt;
@@ -67,6 +86,21 @@ export class Print extends Stmt {
 
   accept<R>(visitor: Visitor<R>): R {
     return visitor.visitPrintStmt(this);
+  }
+}
+
+export class Return extends Stmt {
+  readonly keyword: Token;
+  readonly value: Expr;
+
+  constructor(keyword: Token, value: Expr) {
+    super();
+    this.keyword = keyword;
+    this.value = value;
+  }
+
+  accept<R>(visitor: Visitor<R>): R {
+    return visitor.visitReturnStmt(this);
   }
 }
 
