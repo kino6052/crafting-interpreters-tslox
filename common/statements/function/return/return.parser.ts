@@ -1,8 +1,8 @@
-import { expression } from "../../expressions/expression.parser.ts";
-import { Expr } from "../../Parser/Expr.ts";
-import { ParseError } from "../../Parser/ParseError.ts";
-import { Parser } from "../../Parser/Parser.ts";
-import { TokenType } from "../../Scanner/TokenType.ts";
+import { expression } from "../../../expressions/expression.parser.ts";
+import { Expr } from "../../../../Parser/Expr.ts";
+import { ParseError } from "../../../../Parser/ParseError.ts";
+import { Parser } from "../../../../Parser/Parser.ts";
+import { TokenType } from "../../../../Scanner/TokenType.ts";
 import { Return } from "./return.statement.ts";
 
 export const returnStatement = (parser: Parser): Return => {

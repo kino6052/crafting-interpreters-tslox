@@ -1,4 +1,4 @@
-import { Expr, Visitor } from "../../../../../Parser/Expr.ts";
+import { Expr, Visitor } from "../../../../../../Parser/Expr.ts";
 
 export class Literal extends Expr {
   readonly value: unknown;

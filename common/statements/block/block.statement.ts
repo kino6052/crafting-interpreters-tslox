@@ -1,4 +1,4 @@
-import { Stmt, Visitor } from "../../Parser/Stmt.ts";
+import { Stmt, Visitor } from "../../../Parser/Stmt.ts";
 
 export class Block extends Stmt {
   readonly statements: Array<Stmt>;

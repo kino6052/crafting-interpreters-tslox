@@ -1,4 +1,4 @@
-import { Expr, Visitor } from "../../../../../Parser/Expr.ts";
+import { Expr, Visitor } from "../../../../../../Parser/Expr.ts";
 
 export class Grouping extends Expr {
   readonly expression: Expr;

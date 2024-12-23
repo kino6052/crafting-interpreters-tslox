@@ -1,6 +1,6 @@
-import { Parser } from "../../Parser/Parser.ts";
-import { Stmt } from "../../Parser/Stmt.ts";
-import { TokenType } from "../../Scanner/TokenType.ts";
+import { Parser } from "../../../Parser/Parser.ts";
+import { Stmt } from "../../../Parser/Stmt.ts";
+import { TokenType } from "../../../Scanner/TokenType.ts";
 import { declaration } from "../statement.parser.ts";
 
 export const block = (parser: Parser): Stmt[] => {

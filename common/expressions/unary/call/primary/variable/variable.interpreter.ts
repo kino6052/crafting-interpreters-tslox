@@ -1,4 +1,4 @@
-import { Interpreter } from "../../../../../Interpreter/Interpreter.ts";
+import { Interpreter } from "../../../../../../Interpreter/Interpreter.ts";
 import { Variable } from "./variable.expression.ts";
 
 export const interpretVariableExpr = (

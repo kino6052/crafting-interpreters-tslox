@@ -1,6 +1,6 @@
-import { Expr } from "../../Parser/Expr.ts";
-import { Parser } from "../../Parser/Parser.ts";
-import { TokenType } from "../../Scanner/TokenType.ts";
+import { Expr } from "../../../Parser/Expr.ts";
+import { Parser } from "../../../Parser/Parser.ts";
+import { TokenType } from "../../../Scanner/TokenType.ts";
 import { call } from "./call/call.parser.ts";
 import { Unary } from "./unary.expression.ts";
 

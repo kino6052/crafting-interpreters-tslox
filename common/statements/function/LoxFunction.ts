@@ -1,7 +1,7 @@
-import { Environment } from "../../Interpreter/Environment.ts";
-import { Interpreter } from "../../Interpreter/Interpreter.ts";
-import { LoxCallable } from "../../Interpreter/LoxCallable.ts";
-import { Return } from "../return/Return.ts";
+import { Environment } from "../../../Interpreter/Environment.ts";
+import { Interpreter } from "../../../Interpreter/Interpreter.ts";
+import { LoxCallable } from "../../../Interpreter/LoxCallable.ts";
+import { Return } from "./return/Return.ts";
 import { executeBlock } from "../block/block.interpreter.ts";
 import { Function } from "./function.statement.ts";
 

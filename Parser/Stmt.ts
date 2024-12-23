@@ -1,12 +1,12 @@
 // This file is auto-generated.
-import { Return } from "../statements/return/return.statement.ts";
-import { Block } from "../statements/block/block.statement.ts";
-import { Expression } from "../statements/expression/expression.statement.ts";
-import { Function } from "../statements/function/function.statement.ts";
-import { If } from "../statements/if/if.statement.ts";
-import { Print } from "../statements/print/print.statement.ts";
-import { Var } from "../statements/var/var.statement.ts";
-import { While } from "../statements/while/while.statement.ts";
+import { Return } from "../common/statements/function/return/return.statement.ts";
+import { Block } from "../common/statements/block/block.statement.ts";
+import { Expression } from "../common/statements/expression/expression.statement.ts";
+import { Function } from "../common/statements/function/function.statement.ts";
+import { If } from "../common/statements/if/if.statement.ts";
+import { Print } from "../common/statements/print/print.statement.ts";
+import { Var } from "../common/statements/var/var.statement.ts";
+import { While } from "../common/statements/loop/while/while.statement.ts";
 
 // TODO: Make a simple map
 export interface Visitor<R> {

@@ -1,5 +1,5 @@
-import { Expr, Visitor } from "../../Parser/Expr.ts";
-import { Token } from "../../Scanner/Token.ts";
+import { Expr, Visitor } from "../../../Parser/Expr.ts";
+import { Token } from "../../../Scanner/Token.ts";
 
 export class Unary extends Expr {
   readonly operator: Token;

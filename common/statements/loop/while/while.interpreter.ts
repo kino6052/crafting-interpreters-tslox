@@ -1,5 +1,5 @@
-import { Interpreter } from "../../Interpreter/Interpreter.ts";
-import { isTruthy } from "../../Interpreter/utils.ts";
+import { Interpreter } from "../../../../Interpreter/Interpreter.ts";
+import { isTruthy } from "../../../../Interpreter/utils.ts";
 import { While } from "./while.statement.ts";
 
 export const interpretWhileStmt = (

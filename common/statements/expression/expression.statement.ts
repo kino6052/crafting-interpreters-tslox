@@ -1,5 +1,5 @@
-import { Expr } from "../../Parser/Expr.ts";
-import { Stmt, Visitor } from "../../Parser/Stmt.ts";
+import { Expr } from "../../../Parser/Expr.ts";
+import { Stmt, Visitor } from "../../../Parser/Stmt.ts";
 
 export class Expression extends Stmt {
   readonly expression: Expr;

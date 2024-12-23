@@ -1,5 +1,5 @@
-import { Interpreter } from "../../Interpreter/Interpreter.ts";
-import { stringify } from "../../Interpreter/utils.ts";
+import { Interpreter } from "../../../Interpreter/Interpreter.ts";
+import { stringify } from "../../../Interpreter/utils.ts";
 import { Print } from "./print.statement.ts";
 
 export const interpretPrintStmt = (

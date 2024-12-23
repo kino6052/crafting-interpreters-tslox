@@ -1,6 +1,6 @@
-import { Environment } from "../../Interpreter/Environment.ts";
-import { Interpreter } from "../../Interpreter/Interpreter.ts";
-import { Stmt } from "../../Parser/Stmt.ts";
+import { Environment } from "../../../Interpreter/Environment.ts";
+import { Interpreter } from "../../../Interpreter/Interpreter.ts";
+import { Stmt } from "../../../Parser/Stmt.ts";
 import { Block } from "./block.statement.ts";
 
 export const executeBlock = (

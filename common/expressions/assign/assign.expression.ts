@@ -1,5 +1,5 @@
-import { Token } from "../../../../Scanner/Token.ts";
-import { Expr, Visitor } from "../../../../Parser/Expr.ts";
+import { Token } from "../../../Scanner/Token.ts";
+import { Expr, Visitor } from "../../../Parser/Expr.ts";
 
 export class Assign extends Expr {
   readonly name: Token;

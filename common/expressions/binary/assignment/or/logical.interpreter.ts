@@ -1,6 +1,6 @@
-import { Interpreter } from "../../../../Interpreter/Interpreter.ts";
-import { isTruthy } from "../../../../Interpreter/utils.ts";
-import { TokenType } from "../../../../Scanner/TokenType.ts";
+import { Interpreter } from "../../../../../Interpreter/Interpreter.ts";
+import { isTruthy } from "../../../../../Interpreter/utils.ts";
+import { TokenType } from "../../../../../Scanner/TokenType.ts";
 import { Logical } from "./logical.expression.ts";
 
 export const interpretLogicalExpr = (

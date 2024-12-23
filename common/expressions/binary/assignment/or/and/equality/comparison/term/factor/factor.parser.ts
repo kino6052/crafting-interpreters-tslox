@@ -1,6 +1,6 @@
-import { Expr } from "../../../../../../../../../Parser/Expr.ts";
-import { Parser } from "../../../../../../../../../Parser/Parser.ts";
-import { TokenType } from "../../../../../../../../../Scanner/TokenType.ts";
+import { Expr } from "../../../../../../../../../../Parser/Expr.ts";
+import { Parser } from "../../../../../../../../../../Parser/Parser.ts";
+import { TokenType } from "../../../../../../../../../../Scanner/TokenType.ts";
 import { unary } from "../../../../../../../../unary/unary.parser.ts";
 import { Binary } from "../../../../../../../binary.expression.ts";
 

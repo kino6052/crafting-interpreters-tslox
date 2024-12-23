@@ -1,4 +1,4 @@
-import { Interpreter } from "../../../Interpreter/Interpreter.ts";
+import { Interpreter } from "../../../../Interpreter/Interpreter.ts";
 import { Assign } from "./assignment.expression.ts";
 
 export const interpretAssignmentExpr = (

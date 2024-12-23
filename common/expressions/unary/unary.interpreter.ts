@@ -1,6 +1,6 @@
-import { Interpreter } from "../../Interpreter/Interpreter.ts";
-import { checkNumberOperand, isTruthy } from "../../Interpreter/utils.ts";
-import { TokenType } from "../../Scanner/TokenType.ts";
+import { Interpreter } from "../../../Interpreter/Interpreter.ts";
+import { checkNumberOperand, isTruthy } from "../../../Interpreter/utils.ts";
+import { TokenType } from "../../../Scanner/TokenType.ts";
 import { Unary } from "./unary.expression.ts";
 
 export const interpretUnaryExpr = (

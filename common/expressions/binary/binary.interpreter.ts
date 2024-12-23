@@ -1,7 +1,7 @@
-import { Interpreter } from "../../Interpreter/Interpreter.ts";
-import { RuntimeError } from "../../Interpreter/RuntimeError.ts";
-import { checkNumberOperands, isEqual } from "../../Interpreter/utils.ts";
-import { TokenType } from "../../Scanner/TokenType.ts";
+import { Interpreter } from "../../../Interpreter/Interpreter.ts";
+import { RuntimeError } from "../../../Interpreter/RuntimeError.ts";
+import { checkNumberOperands, isEqual } from "../../../Interpreter/utils.ts";
+import { TokenType } from "../../../Scanner/TokenType.ts";
 import { Binary } from "./binary.expression.ts";
 
 export const interpretBinaryExpr = (

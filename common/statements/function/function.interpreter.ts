@@ -1,6 +1,6 @@
 import { Function } from "./function.statement.ts";
 import { LoxFunction } from "./LoxFunction.ts";
-import { Interpreter } from "../../Interpreter/Interpreter.ts";
+import { Interpreter } from "../../../Interpreter/Interpreter.ts";
 
 export const interpretFunctionStmt = (
   stmt: Function,

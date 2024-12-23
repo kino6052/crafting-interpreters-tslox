@@ -1,6 +1,6 @@
-import { Interpreter } from "../../../Interpreter/Interpreter.ts";
-import { LoxCallable } from "../../../Interpreter/LoxCallable.ts";
-import { RuntimeError } from "../../../Interpreter/RuntimeError.ts";
+import { Interpreter } from "../../../../Interpreter/Interpreter.ts";
+import { LoxCallable } from "../../../../Interpreter/LoxCallable.ts";
+import { RuntimeError } from "../../../../Interpreter/RuntimeError.ts";
 import { Call } from "./call.expression.ts";
 
 export const interpretCallExpr = (

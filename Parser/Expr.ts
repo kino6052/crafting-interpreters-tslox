@@ -1,12 +1,12 @@
 // This file is auto-generated.
-import { Assign } from "../expressions/binary/assignment/assignment.expression.ts";
-import { Logical } from "../expressions/binary/assignment/or/logical.expression.ts";
-import { Binary } from "../expressions/binary/binary.expression.ts";
-import { Call } from "../expressions/unary/call/call.expression.ts";
-import { Grouping } from "../expressions/unary/call/primary/grouping/grouping.expression.ts";
-import { Literal } from "../expressions/unary/call/primary/literal/literal.expression.ts";
-import { Variable } from "../expressions/unary/call/primary/variable/variable.expression.ts";
-import { Unary } from "../expressions/unary/unary.expression.ts";
+import { Assign } from "../common/expressions/binary/assignment/assignment.expression.ts";
+import { Logical } from "../common/expressions/binary/assignment/or/logical.expression.ts";
+import { Binary } from "../common/expressions/binary/binary.expression.ts";
+import { Call } from "../common/expressions/unary/call/call.expression.ts";
+import { Grouping } from "../common/expressions/unary/call/primary/grouping/grouping.expression.ts";
+import { Literal } from "../common/expressions/unary/call/primary/literal/literal.expression.ts";
+import { Variable } from "../common/expressions/unary/call/primary/variable/variable.expression.ts";
+import { Unary } from "../common/expressions/unary/unary.expression.ts";
 
 // TODO: Make a simple map
 export interface Visitor<R> {

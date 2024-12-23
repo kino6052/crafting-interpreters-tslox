@@ -1,17 +1,17 @@
-import { ParseError } from "../Parser/ParseError.ts";
-import { Parser } from "../Parser/Parser.ts";
-import { Stmt } from "../Parser/Stmt.ts";
-import { TokenType } from "../Scanner/TokenType.ts";
+import { ParseError } from "../../Parser/ParseError.ts";
+import { Parser } from "../../Parser/Parser.ts";
+import { Stmt } from "../../Parser/Stmt.ts";
+import { TokenType } from "../../Scanner/TokenType.ts";
 import { block } from "./block/block.parser.ts";
 import { Block } from "./block/block.statement.ts";
 import { expressionStatement } from "./expression/expression.parser.ts";
-import { forStatement } from "./for.parser.ts";
+import { forStatement } from "./loop/for.parser.ts";
 import { _function } from "./function/function.parser.ts";
 import { ifStatement } from "./if/if.parser.ts";
 import { printStatement } from "./print/print.parser.ts";
-import { returnStatement } from "./return/return.parser.ts";
+import { returnStatement } from "./function/return/return.parser.ts";
 import { varDeclaration } from "./var/var.parser.ts";
-import { whileStatement } from "./while/while.parser.ts";
+import { whileStatement } from "./loop/while/while.parser.ts";
 
 export const statement = (parser: Parser): Stmt => {
   if (parser.match(TokenType.FOR)) return forStatement(parser);

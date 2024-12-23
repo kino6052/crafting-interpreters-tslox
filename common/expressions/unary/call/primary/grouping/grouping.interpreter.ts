@@ -1,4 +1,4 @@
-import { Interpreter } from "../../../../../Interpreter/Interpreter.ts";
+import { Interpreter } from "../../../../../../Interpreter/Interpreter.ts";
 import { Grouping } from "./grouping.expression.ts";
 
 export const interpretGroupingExpr = (

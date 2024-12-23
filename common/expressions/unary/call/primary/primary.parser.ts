@@ -1,6 +1,6 @@
-import { Expr } from "../../../../Parser/Expr.ts";
-import { Parser } from "../../../../Parser/Parser.ts";
-import { TokenType } from "../../../../Scanner/TokenType.ts";
+import { Expr } from "../../../../../Parser/Expr.ts";
+import { Parser } from "../../../../../Parser/Parser.ts";
+import { TokenType } from "../../../../../Scanner/TokenType.ts";
 import { expression } from "../../../expression.parser.ts";
 import { Grouping } from "./grouping/grouping.expression.ts";
 import { Literal } from "./literal/literal.expression.ts";

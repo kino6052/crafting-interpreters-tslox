@@ -1,4 +1,4 @@
-import { Interpreter } from "../../Interpreter/Interpreter.ts";
+import { Interpreter } from "../../../../Interpreter/Interpreter.ts";
 import { Return } from "./return.statement.ts";
 import { Return as ReturnConstruct } from "./Return.ts";
 

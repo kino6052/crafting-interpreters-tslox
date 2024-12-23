@@ -1,4 +1,4 @@
-import { Interpreter } from "../../Interpreter/Interpreter.ts";
+import { Interpreter } from "../../../Interpreter/Interpreter.ts";
 import { Var } from "./var.statement.ts";
 
 export const interpretVarStmt = (stmt: Var, interpreter: Interpreter): void => {

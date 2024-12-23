@@ -1,5 +1,5 @@
-import { Interpreter } from "../../Interpreter/Interpreter.ts";
-import { isTruthy } from "../../Interpreter/utils.ts";
+import { Interpreter } from "../../../Interpreter/Interpreter.ts";
+import { isTruthy } from "../../../Interpreter/utils.ts";
 import { If } from "./if.statement.ts";
 
 export const interpretIfStmt = (stmt: If, interpreter: Interpreter) => {

@@ -1,6 +1,6 @@
-import { Expr } from "../../../../Parser/Expr.ts";
-import { Parser } from "../../../../Parser/Parser.ts";
-import { TokenType } from "../../../../Scanner/TokenType.ts";
+import { Expr } from "../../../../../Parser/Expr.ts";
+import { Parser } from "../../../../../Parser/Parser.ts";
+import { TokenType } from "../../../../../Scanner/TokenType.ts";
 import { and } from "./and/and.parser.ts";
 import { Logical } from "./logical.expression.ts";
 

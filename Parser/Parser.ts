@@ -1,7 +1,7 @@
 import { Lox } from "../Lox.ts";
 import { Token } from "../Scanner/Token.ts";
 import { TokenType } from "../Scanner/TokenType.ts";
-import { declaration } from "../statements/statement.parser.ts";
+import { declaration } from "../common/statements/statement.parser.ts";
 import { ParseError } from "./ParseError.ts";
 import { Stmt } from "./Stmt.ts";
 

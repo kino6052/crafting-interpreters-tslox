@@ -1,7 +1,7 @@
-import { Parser } from "../../Parser/Parser.ts";
-import { Stmt } from "../../Parser/Stmt.ts";
-import { Token } from "../../Scanner/Token.ts";
-import { TokenType } from "../../Scanner/TokenType.ts";
+import { Parser } from "../../../Parser/Parser.ts";
+import { Stmt } from "../../../Parser/Stmt.ts";
+import { Token } from "../../../Scanner/Token.ts";
+import { TokenType } from "../../../Scanner/TokenType.ts";
 import { block } from "../block/block.parser.ts";
 import { Function } from "./function.statement.ts";
 

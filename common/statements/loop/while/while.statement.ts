@@ -1,5 +1,5 @@
-import { Expr } from "../../Parser/Expr.ts";
-import { Stmt, Visitor } from "../../Parser/Stmt.ts";
+import { Expr } from "../../../../Parser/Expr.ts";
+import { Stmt, Visitor } from "../../../../Parser/Stmt.ts";
 
 export class While extends Stmt {
   readonly condition: Expr;

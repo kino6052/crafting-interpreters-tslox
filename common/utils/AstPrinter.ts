@@ -1,5 +1,5 @@
 import { Binary } from "../expressions/binary/binary.expression.ts";
-import { Expr, Grouping, Literal, Unary, Visitor } from "../Parser/Expr.ts";
+import { Expr, Grouping, Literal, Unary, Visitor } from "../../Parser/Expr.ts";
 
 export class AstPrinter implements Visitor<string> {
   print(expr: Expr): string {

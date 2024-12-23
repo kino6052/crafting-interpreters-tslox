@@ -1,6 +1,6 @@
-import { Expr } from "../../Parser/Expr.ts";
-import { Stmt, Visitor } from "../../Parser/Stmt.ts";
-import { Token } from "../../Scanner/Token.ts";
+import { Expr } from "../../../Parser/Expr.ts";
+import { Stmt, Visitor } from "../../../Parser/Stmt.ts";
+import { Token } from "../../../Scanner/Token.ts";
 
 export class Var extends Stmt {
   readonly name: Token;
