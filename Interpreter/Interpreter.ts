@@ -6,37 +6,37 @@ import { interpretBinaryExpr } from "../expressions/binary/binary.interpreter.ts
 import { Unary } from "../expressions/unary/unary.expression.ts";
 import { interpretUnaryExpr } from "../expressions/unary/unary.interpreter.ts";
 import { Lox } from "../Lox.ts";
-import {
-  Call,
-  Expr,
-  Grouping,
-  Literal,
-  Variable,
-  Visitor,
-} from "../Parser/Expr.ts";
-import {
-  Expression,
-  Function,
-  If,
-  Return,
-  Stmt,
-  Visitor as StmtVisitor,
-  Var,
-} from "../Parser/Stmt.ts";
-import { Token } from "../Scanner/Token.ts";
+import { Expr, Visitor } from "../Parser/Expr.ts";
+import { Stmt, Visitor as StmtVisitor } from "../Parser/Stmt.ts";
 import { interpretBlockStmt } from "../statements/block/block.interpreter.ts";
 import { Block } from "../statements/block/block.statement.ts";
 import { interpretPrintStmt } from "../statements/print/print.interpreter.ts";
 import { interpretWhileStmt } from "../statements/while/while.interpreter.ts";
 
+import { interpretAssignmentExpr } from "../expressions/binary/assignment/assignment.interpreter.ts";
+import { Call } from "../expressions/unary/call/call.expression.ts";
+import { interpretCallExpr } from "../expressions/unary/call/call.interpreter.ts";
+import { Grouping } from "../expressions/unary/call/primary/grouping/grouping.expression.ts";
+import { interpretGroupingExpr } from "../expressions/unary/call/primary/grouping/grouping.interpreter.ts";
+import { Literal } from "../expressions/unary/call/primary/literal/literal.expression.ts";
+import { interpretLiteral } from "../expressions/unary/call/primary/literal/literal.interpreter.ts";
+import { Variable } from "../expressions/unary/call/primary/variable/variable.expression.ts";
+import { interpretVariableExpr } from "../expressions/unary/call/primary/variable/variable.interpreter.ts";
+import { interpretExpressionStmt } from "../statements/expression/expression.interpreter.ts";
+import { Expression } from "../statements/expression/expression.statement.ts";
+import { interpretFunctionStmt } from "../statements/function/function.interpreter.ts";
+import { Function } from "../statements/function/function.statement.ts";
+import { interpretIfStmt } from "../statements/if/if.interpreter.ts";
+import { If } from "../statements/if/if.statement.ts";
 import { Print } from "../statements/print/print.statement.ts";
+import { interpretReturnStmt } from "../statements/return/return.interpreter.ts";
+import { Return } from "../statements/return/return.statement.ts";
+import { interpretVarStmt } from "../statements/var/var.interpreter.ts";
+import { Var } from "../statements/var/var.statement.ts";
 import { While } from "../statements/while/while.statement.ts";
 import { Environment } from "./Environment.ts";
 import { LoxCallable } from "./LoxCallable.ts";
-import { LoxFunction } from "./LoxFunction.ts";
-import { Return as ReturnConstruct } from "./Return.ts";
 import { RuntimeError } from "./RuntimeError.ts";
-import { isTruthy } from "./utils.ts";
 
 export class Interpreter implements Visitor<unknown>, StmtVisitor<void> {
   public globals: Environment = new Environment();
@@ -75,57 +75,19 @@ export class Interpreter implements Visitor<unknown>, StmtVisitor<void> {
   }
 
   visitFunctionStmt(stmt: Function): void {
-    const func = new LoxFunction(stmt, this.environment);
-    this.environment.define(stmt.name.lexeme, func);
+    return interpretFunctionStmt(stmt, this);
   }
 
   visitReturnStmt(stmt: Return): void {
-    let value: unknown = null;
-    if (stmt.value !== null) {
-      value = this.evaluate(stmt.value);
-    }
-
-    throw new ReturnConstruct(value);
+    return interpretReturnStmt(stmt, this);
   }
 
   visitCallExpr(expr: Call): unknown {
-    const callee = this.evaluate(expr.callee);
-    const _arguments: unknown[] = [];
-
-    function isLoxCallable(object: unknown): object is LoxCallable {
-      return (
-        typeof object === "object" &&
-        object !== null &&
-        typeof (object as LoxCallable).call === "function" &&
-        typeof (object as LoxCallable).arity === "function"
-      );
-    }
-
-    for (const argument of expr.arguments) {
-      _arguments.push(this.evaluate(argument));
-    }
-
-    if (!isLoxCallable(callee)) {
-      throw new RuntimeError(
-        expr.paren,
-        "Can only call functions and classes."
-      );
-    }
-
-    const func = callee as LoxCallable;
-
-    if (_arguments.length !== func.arity()) {
-      throw new RuntimeError(
-        expr.paren,
-        `Expected ${func.arity()} arguments but got ${_arguments.length}.`
-      );
-    }
-
-    return func.call(this, _arguments);
+    return interpretCallExpr(expr, this);
   }
 
   visitLiteralExpr(expr: Literal): unknown {
-    return expr.value;
+    return interpretLiteral(expr);
   }
 
   visitLogicalExpr(expr: Logical): unknown {
@@ -133,11 +95,7 @@ export class Interpreter implements Visitor<unknown>, StmtVisitor<void> {
   }
 
   visitIfStmt(stmt: If): void {
-    if (isTruthy(this.evaluate(stmt.condition))) {
-      this.execute(stmt.thenBranch);
-    } else if (stmt.elseBranch !== null) {
-      this.execute(stmt.elseBranch);
-    }
+    return interpretIfStmt(stmt, this);
   }
 
   visitWhileStmt(stmt: While): void {
@@ -148,55 +106,35 @@ export class Interpreter implements Visitor<unknown>, StmtVisitor<void> {
     return interpretUnaryExpr(expr, this);
   }
 
-  public visitVariableExpr(expr: Variable): unknown {
-    return this.environment.get(expr.name);
-  }
-
-  public checkNumberOperand(operator: Token, operand: unknown): void {
-    if (typeof operand === "number") return;
-    throw new RuntimeError(operator, "Operand must be a number.");
-  }
-
-  public checkNumberOperands(
-    operator: Token,
-    left: unknown,
-    right: unknown
-  ): void {
-    if (typeof left === "number" && typeof right === "number") return;
-    throw new RuntimeError(operator, "Operands must be numbers.");
+  visitVariableExpr(expr: Variable): unknown {
+    return interpretVariableExpr(expr, this);
   }
 
   visitGroupingExpr(expr: Grouping): unknown {
-    return this.evaluate(expr.expression);
+    return interpretGroupingExpr(expr, this);
   }
 
-  public evaluate(expr: Expr): unknown {
+  evaluate(expr: Expr): unknown {
     return expr.accept(this);
   }
 
-  public execute(stmt: Stmt): void {
+  execute(stmt: Stmt): void {
     stmt.accept(this);
   }
 
   visitExpressionStmt(stmt: Expression): void {
-    this.evaluate(stmt.expression);
+    return interpretExpressionStmt(stmt, this);
   }
 
   visitPrintStmt(stmt: Print): void {
-    interpretPrintStmt(stmt, this);
+    return interpretPrintStmt(stmt, this);
   }
 
   visitVarStmt(stmt: Var): void {
-    let value: unknown = null;
-    if (stmt.initializer !== null) {
-      value = this.evaluate(stmt.initializer);
-    }
-    this.environment.define(stmt.name.lexeme, value);
+    return interpretVarStmt(stmt, this);
   }
 
   visitAssignExpr(expr: Assign): unknown {
-    const value = this.evaluate(expr.value);
-    this.environment.assign(expr.name, value);
-    return value;
+    return interpretAssignmentExpr(expr, this);
   }
 }

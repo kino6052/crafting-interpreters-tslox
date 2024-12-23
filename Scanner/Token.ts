@@ -4,7 +4,7 @@ export class Token {
   constructor(
     public type: TokenType,
     public lexeme: string,
-    public literal: any,
+    public literal: unknown,
     public line: number
   ) {}
 

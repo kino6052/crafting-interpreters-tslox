@@ -54,7 +54,7 @@ export class Scanner {
     return this.source.charAt(this.current++);
   }
 
-  public addToken(type: TokenType, literal: any = null) {
+  public addToken(type: TokenType, literal: unknown = null) {
     const text = this.source.substring(this.start, this.current);
     this.tokens.push({ type, lexeme: text, literal, line: this.line });
   }
