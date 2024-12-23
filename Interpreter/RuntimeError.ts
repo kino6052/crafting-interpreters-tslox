@@ -1,4 +1,4 @@
-import { Token } from "./Token.ts";
+import { Token } from "../Scanner/Token.ts";
 
 export class RuntimeError extends Error {
   readonly token: Token;

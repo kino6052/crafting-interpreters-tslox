@@ -1,5 +1,8 @@
 // This file is auto-generated.
-import { Token } from "./Token.ts";
+import { Token } from "../Scanner/Token.ts";
+import { Block } from "../statements/block/block.statement.ts";
+import { Print } from "../statements/print/print.statement.ts";
+import { While } from "../statements/while/while.statement.ts";
 import { Expr } from "./Expr.ts";
 
 export interface Visitor<R> {
@@ -14,19 +17,6 @@ export interface Visitor<R> {
 }
 export abstract class Stmt {
   abstract accept<R>(visitor: Visitor<R>): R;
-}
-
-export class Block extends Stmt {
-  readonly statements: Array<Stmt>;
-
-  constructor(statements: Array<Stmt>) {
-    super();
-    this.statements = statements;
-  }
-
-  accept<R>(visitor: Visitor<R>): R {
-    return visitor.visitBlockStmt(this);
-  }
 }
 
 export class Expression extends Stmt {
@@ -62,9 +52,9 @@ export class Function extends Stmt {
 export class If extends Stmt {
   readonly condition: Expr;
   readonly thenBranch: Stmt;
-  readonly elseBranch: Stmt|null;
+  readonly elseBranch: Stmt | null;
 
-  constructor(condition: Expr, thenBranch: Stmt, elseBranch: Stmt|null) {
+  constructor(condition: Expr, thenBranch: Stmt, elseBranch: Stmt | null) {
     super();
     this.condition = condition;
     this.thenBranch = thenBranch;
@@ -73,19 +63,6 @@ export class If extends Stmt {
 
   accept<R>(visitor: Visitor<R>): R {
     return visitor.visitIfStmt(this);
-  }
-}
-
-export class Print extends Stmt {
-  readonly expression: Expr;
-
-  constructor(expression: Expr) {
-    super();
-    this.expression = expression;
-  }
-
-  accept<R>(visitor: Visitor<R>): R {
-    return visitor.visitPrintStmt(this);
   }
 }
 
@@ -116,20 +93,5 @@ export class Var extends Stmt {
 
   accept<R>(visitor: Visitor<R>): R {
     return visitor.visitVarStmt(this);
-  }
-}
-
-export class While extends Stmt {
-  readonly condition: Expr;
-  readonly body: Stmt;
-
-  constructor(condition: Expr, body: Stmt) {
-    super();
-    this.condition = condition;
-    this.body = body;
-  }
-
-  accept<R>(visitor: Visitor<R>): R {
-    return visitor.visitWhileStmt(this);
   }
 }

@@ -2,7 +2,7 @@ import { Environment } from "./Environment.ts";
 import { Interpreter } from "./Interpreter.ts";
 import { LoxCallable } from "./LoxCallable.ts";
 import { Return } from "./Return.ts";
-import { Function } from "./Stmt.ts";
+import { Function } from "../Parser/Stmt.ts";
 
 export class LoxFunction implements LoxCallable {
   private declaration: Function;

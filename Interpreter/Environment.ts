@@ -1,5 +1,5 @@
 import { RuntimeError } from "./RuntimeError.ts";
-import { Token } from "./Token.ts";
+import { Token } from "../Scanner/Token.ts";
 
 export class Environment {
   readonly enclosing: Environment | null;

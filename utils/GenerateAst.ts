@@ -1,5 +1,5 @@
 // This file generates AST definitions and their visitor interface.
-import { Token } from "./Token.ts";
+import { Token } from "../Scanner/Token.ts";
 
 async function main(args: string[]): Promise<void> {
   if (args.length !== 1) {

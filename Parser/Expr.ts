@@ -1,5 +1,9 @@
 // This file is auto-generated.
-import { Token } from "./Token.ts";
+import { Token } from "../Scanner/Token.ts";
+import { Assign } from "../expressions/binary/assignment/assignment.expression.ts";
+import { Logical } from "../expressions/binary/assignment/or/logical.expression.ts";
+import { Binary } from "../expressions/binary/binary.expression.ts";
+import { Unary } from "../expressions/unary/unary.expression.ts";
 
 export interface Visitor<R> {
   visitAssignExpr(expr: Assign): R;
@@ -13,38 +17,6 @@ export interface Visitor<R> {
 }
 export abstract class Expr {
   abstract accept<R>(visitor: Visitor<R>): R;
-}
-
-export class Assign extends Expr {
-  readonly name: Token;
-  readonly value: Expr;
-
-  constructor(name: Token, value: Expr) {
-    super();
-    this.name = name;
-    this.value = value;
-  }
-
-  accept<R>(visitor: Visitor<R>): R {
-    return visitor.visitAssignExpr(this);
-  }
-}
-
-export class Binary extends Expr {
-  readonly left: Expr;
-  readonly operator: Token;
-  readonly right: Expr;
-
-  constructor(left: Expr, operator: Token, right: Expr) {
-    super();
-    this.left = left;
-    this.operator = operator;
-    this.right = right;
-  }
-
-  accept<R>(visitor: Visitor<R>): R {
-    return visitor.visitBinaryExpr(this);
-  }
 }
 
 export class Call extends Expr {
@@ -87,38 +59,6 @@ export class Literal extends Expr {
 
   accept<R>(visitor: Visitor<R>): R {
     return visitor.visitLiteralExpr(this);
-  }
-}
-
-export class Logical extends Expr {
-  readonly left: Expr;
-  readonly operator: Token;
-  readonly right: Expr;
-
-  constructor(left: Expr, operator: Token, right: Expr) {
-    super();
-    this.left = left;
-    this.operator = operator;
-    this.right = right;
-  }
-
-  accept<R>(visitor: Visitor<R>): R {
-    return visitor.visitLogicalExpr(this);
-  }
-}
-
-export class Unary extends Expr {
-  readonly operator: Token;
-  readonly right: Expr;
-
-  constructor(operator: Token, right: Expr) {
-    super();
-    this.operator = operator;
-    this.right = right;
-  }
-
-  accept<R>(visitor: Visitor<R>): R {
-    return visitor.visitUnaryExpr(this);
   }
 }
 

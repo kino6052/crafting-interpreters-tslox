@@ -1,10 +1,10 @@
 import { readLines } from "https://deno.land/std@0.200.0/io/mod.ts";
-import { Interpreter } from "./Interpreter.ts";
-import { Parser } from "./Parser.ts";
-import { Scanner } from "./Scanner.ts";
-import { Token } from "./Token.ts";
-import { TokenType } from "./TokenType.ts";
-import { RuntimeError } from "./RuntimeError.ts";
+import { Interpreter } from "./Interpreter/Interpreter.ts";
+import { Parser } from "./Parser/Parser.ts";
+import { Scanner } from "./Scanner/Scanner.ts";
+import { Token } from "./Scanner/Token.ts";
+import { TokenType } from "./Scanner/TokenType.ts";
+import { RuntimeError } from "./Interpreter/RuntimeError.ts";
 
 export class Lox {
   private static interpreter = new Interpreter();
