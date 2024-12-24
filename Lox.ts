@@ -22,7 +22,9 @@ export class Lox {
 
   static async runPrompt(): Promise<void> {
     console.log("Enter your code below (Ctrl+D to finish):");
-    for await (const line of readLines(Deno.stdin)) {
+    for await (const line of readLines(Deno.stdin, {
+      encoding: "utf8",
+    })) {
       this.run(line);
       this.hadError = false;
     }

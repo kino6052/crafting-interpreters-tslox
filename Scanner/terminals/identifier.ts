@@ -4,7 +4,7 @@ import { TokenType } from "../TokenType.ts";
 import { isDigit } from "./number.ts";
 
 export const isAlpha = (c: string): boolean => {
-  return (c >= "a" && c <= "z") || (c >= "A" && c <= "Z") || c === "_";
+  return /^[\p{L}_]+/u.test(c);
 };
 
 export const isAlphaNumeric = (c: string): boolean => {
