@@ -18,7 +18,7 @@ import { Interpreter } from "./Interpreter.ts";
 
 export const interpreterMap: Record<
   string,
-  (entity: unknown, interpreter: Interpreter) => unknown
+  (entity: any, interpreter: Interpreter) => unknown
 > = {
   Binary: interpretBinaryExpr,
   Block: interpretBlockStmt,

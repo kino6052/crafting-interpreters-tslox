@@ -1,13 +1,13 @@
 import { Lox } from "../Lox.ts";
-import { Expr, Visitor } from "../Parser/Expr.ts";
-import { Stmt, Visitor as StmtVisitor } from "../Parser/Stmt.ts";
+import { Expr } from "../Parser/Expr.ts";
+import { Stmt } from "../Parser/Stmt.ts";
 
 import { Environment } from "./Environment.ts";
 import { LoxCallable } from "./LoxCallable.ts";
 import { RuntimeError } from "./RuntimeError.ts";
 import { interpreterMap } from "./constants.ts";
 
-export class Interpreter implements Visitor<unknown>, StmtVisitor<void> {
+export class Interpreter {
   public globals: Environment = new Environment();
   public environment = this.globals;
 
