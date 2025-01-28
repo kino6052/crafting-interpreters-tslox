@@ -9,6 +9,22 @@ export class Environment {
     this.enclosing = enclosing;
   }
 
+  getAt(distance: number, name: string): unknown {
+    return this.ancestor(distance).values.get(name);
+  }
+
+  assignAt(distance: number, name: Token, value: unknown): void {
+    this.ancestor(distance).values.set(name.lexeme, value);
+  }
+
+  ancestor(distance: number): Environment {
+    let environment: Environment = this;
+    for (let i = 0; i < distance; i++) {
+      environment = environment.enclosing!;
+    }
+    return environment;
+  }
+
   define(name: string, value: unknown): void {
     this.values.set(name, value);
   }

@@ -5,6 +5,7 @@ import { Scanner } from "./Scanner.ts";
 import { Token } from "./Token.ts";
 import { TokenType } from "./TokenType.ts";
 import { RuntimeError } from "./RuntimeError.ts";
+import { Resolver } from "./Resolver.ts";
 
 export class Lox {
   private static interpreter = new Interpreter();
@@ -36,6 +37,11 @@ export class Lox {
     const statements = parser.parse();
 
     // Stop if there was a syntax error.
+    if (this.hadError) return;
+
+    const resolver = new Resolver(this.interpreter);
+    resolver.resolve(statements);
+    // Stop if there was a resolution error.
     if (this.hadError) return;
 
     if (statements) {

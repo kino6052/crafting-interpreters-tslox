@@ -34,6 +34,7 @@ import { LoxCallable } from "./LoxCallable.ts";
 export class Interpreter implements Visitor<unknown>, StmtVisitor<void> {
   private globals: Environment = new Environment();
   private environment = this.globals;
+  private locals: Map<Expr, number> = new Map();
 
   constructor() {
     this.globals.define("clock", {
@@ -159,8 +160,17 @@ export class Interpreter implements Visitor<unknown>, StmtVisitor<void> {
     throw new Error("Invalid unary operator.");
   }
 
-  public visitVariableExpr(expr: Variable): unknown {
-    return this.environment.get(expr.name);
+  visitVariableExpr(expr: Variable): unknown {
+    return this.lookUpVariable(expr.name, expr);
+  }
+
+  private lookUpVariable(name: Token, expr: Expr): unknown {
+    const distance = this.locals.get(expr);
+    if (distance !== undefined) {
+      return this.environment.getAt(distance, name.lexeme);
+    } else {
+      return this.globals.get(name);
+    }
   }
 
   private checkNumberOperand(operator: Token, operand: unknown): void {
@@ -212,6 +222,10 @@ export class Interpreter implements Visitor<unknown>, StmtVisitor<void> {
     stmt.accept(this);
   }
 
+  resolve(expr: Expr, depth: number): void {
+    this.locals.set(expr, depth);
+  }
+
   executeBlock(statements: Stmt[], environment: Environment): void {
     const previous = this.environment;
     try {
@@ -248,7 +262,14 @@ export class Interpreter implements Visitor<unknown>, StmtVisitor<void> {
 
   visitAssignExpr(expr: Assign): unknown {
     const value = this.evaluate(expr.value);
-    this.environment.assign(expr.name, value);
+
+    const distance = this.locals.get(expr);
+    if (distance !== undefined) {
+      this.environment.assignAt(distance, expr.name, value);
+    } else {
+      this.globals.assign(expr.name, value);
+    }
+
     return value;
   }
 
